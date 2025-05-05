@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Summary;
 use App\Models\Account;
-use App\Models\Categories;
+use App\Models\AccountCategories;
 use App\Models\Attached;
 use App\Models\Attributes;
 use App\Models\User;
@@ -20,10 +20,10 @@ class DetalleController extends Controller
         $r=(new SummaryController)->pass($act='cuentas');
         if($r>0){
 
-            // $categories = Categories::all();
+            // $categories = AccountCategories::all();
             $data = Summary::where('id',$id)->first();
             $account = Account::where('id',$data->account_id)->first();
-            $categories = Categories::where('id',$data->categories_id)->first();
+            $categories = AccountCategories::where('id',$data->categories_id)->first();
             $attributes = Attributes::where('id',$data->id_attr)->first();
             $usuario = User::where('id',$data->id_autor)->first();
 

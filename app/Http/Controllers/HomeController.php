@@ -11,9 +11,9 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Models\Summary;
 use App\Models\Account;
-use App\Models\Categories;
-use App\Models\Settings;
-use App\Models\Permissions as Permissions;
+use App\Models\AccountCategories;
+use App\Models\AccountSettings;
+use App\Models\AccountPermissions;
 use Datetime;
 use Auth;
 
@@ -45,10 +45,10 @@ class HomeController extends Controller
 
     $log = Auth::id();
     $user=array();
-    $user = Permissions::where('id_user',$log)->first();
+    $user = AccountPermissions::where('id_user',$log)->first();
       if($user==null){
         
-        $per = new Permissions;
+        $per = new AccountPermissions;
         $per->id_user=$log;
         $per->save();
 
@@ -77,8 +77,8 @@ class HomeController extends Controller
 
 
 
-          $categories = Categories::all();
-          $divisa = Settings::where('name','divisa')->first();
+          $categories = AccountCategories::all();
+          $divisa = AccountSettings::where('name','divisa')->first();
           $account = Account::orderBy('id','desc')->limit(5)->get();
          
           $response =array();
@@ -125,7 +125,7 @@ class HomeController extends Controller
             $s->setAttribute('name_account',$name_account->name);
           }
           foreach ($summary as $a) {
-            $name_categories = Categories::find($a->categories_id);
+            $name_categories = AccountCategories::find($a->categories_id);
             $a->setAttribute('name_categories',$name_categories->name);
           }
           return view('vendor.adminlte.home',['summary'=>$account,'account'=>$summary,'add'=>$add,'out'=>$out,'divisa'=>$divisa,'alerta'=>$alerta]);

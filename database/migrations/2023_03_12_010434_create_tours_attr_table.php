@@ -22,7 +22,7 @@ class CreateToursAttrTable extends Migration
         });
         
         Schema::table('tours_attr', function (Blueprint $table) {
-            $table->index('tours_id');
+            //$table->index('tours_id');
         });
     }
 

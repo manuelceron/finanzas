@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Summary;
 use App\Models\Account;
-use App\Models\Categories;
-use App\Models\Settings;
+use App\Models\AccountCategories;
+use App\Models\AccountSettings;
 use Datetime;
 use Auth;
 
@@ -21,10 +21,10 @@ class TotalController extends Controller
       if($r>0 ){  
         $hoy=date('Y-m-d',strtotime('today'));
         $summary = Summary::where('created_at','<=',$hoy)->orderBy('id','desc')->get();
-        $categories = Categories::all();
+        $categories = AccountCategories::all();
         $account = Account::all();
         $account2 = Account::all();
-        $divisa = Settings::where('name','divisa')->first();
+        $divisa = AccountSettings::where('name','divisa')->first();
        
        	$response =array();
         $total =array();

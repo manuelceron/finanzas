@@ -18,7 +18,7 @@ class CreateAttrValuesTable extends Migration
             $table->text('name');
             $table->text('value');
             $table->unsignedBigInteger('id_categorie')->nullable();
-            $table->foreign('id_categorie')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('id_categorie')->references('id')->on('account_categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

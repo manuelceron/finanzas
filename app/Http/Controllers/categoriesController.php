@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Categories;
+use App\Models\AccountCategories;
 use App\Models\Summary;
 use App\Models\Attributes;
 use App\Models\Bitacora;
@@ -16,7 +16,7 @@ class CategoriesController extends Controller
    		$r=(new SummaryController)->pass($act='categoria');
         if($r>0){
 
-	        $categories = Categories::all();
+	        $categories = AccountCategories::all();
 	        return view('vendor.adminlte.categories.categories',['categories'=>$categories]);
 
     	}else{
@@ -36,7 +36,7 @@ class CategoriesController extends Controller
 	    	'description' => $request->description,
 	    	'type' => $request->type,
 	    	);
-	   	$id=Categories::insertGetId($valores);
+	   	$id=AccountCategories::insertGetId($valores);
 
 		  $bitacora =  new Bitacora;
 		  $bitacora->type="add";
@@ -57,7 +57,7 @@ class CategoriesController extends Controller
 		$r=(new SummaryController)->pass($act='categoria');
         if($r==1 || $r==2 || $r==4  || $r==7){
 
-		$data = Categories::where('id',$id)->first();
+		$data = AccountCategories::where('id',$id)->first();
 		$data1 = Attributes::where('id_categorie',$id)->get();
 
 		return view('vendor.adminlte.categories.edit',['data'=>$data,'data1'=>$data1]);
@@ -93,7 +93,7 @@ class CategoriesController extends Controller
 				    
 		}
 
-        $categories = Categories::find($id);
+        $categories = AccountCategories::find($id);
         $categories->name = $request->name;
 		$categories->description = $request->description;
 		$categories->type = $request->type;
@@ -127,9 +127,9 @@ class CategoriesController extends Controller
 		}else{
 
 
-		$categories = Categories::find($id);
+		$categories = AccountCategories::find($id);
 		
-		$data = Categories::where('id',$id)->first();
+		$data = AccountCategories::where('id',$id)->first();
     	$attributes = Attributes::where('id_categorie',$id)->delete();
         $categories->delete();
 
@@ -181,7 +181,7 @@ class CategoriesController extends Controller
 
     public function view_attr($id=null){
     	
-    			$categorie = Categories::find($id);
+    			$categorie = AccountCategories::find($id);
     			return view('vendor.adminlte.categories.attr',['categorie'=>$categorie]);
     		
     }

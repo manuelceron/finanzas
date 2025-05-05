@@ -13,7 +13,7 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('categories')->insert([
+        DB::table('account_categories')->insert([
             [
                 'id' => 1,
                 'name' => 'transferencia',

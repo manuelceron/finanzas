@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transfer extends Model
 {
-    protected $table = 'transfer';
-    public $timestamps = false;
+    protected $table = 'transfers';
+    public $timestamps = true;
 }

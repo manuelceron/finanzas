@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Account;
 use App\Models\Summary;
-use App\Models\Categories;
-use App\Models\Settings;
+use App\Models\AccountCategories;
+use App\Models\AccountSettings;
 use App\Models\Attached;
 use App\Models\Bitacora;
 use Auth;
@@ -103,9 +103,9 @@ class AccountController extends Controller
 
       $hoy = new DateTime('now');
      // $hoy=date('Y-m-d',strtotime('today + 1 day'));
-        $categories = Categories::all();
+        $categories = AccountCategories::all();
         $account = Account::all();
-        $divisa = Settings::where('name','divisa')->first();
+        $divisa = AccountSettings::where('name','divisa')->first();
 
          //total saldo
           $response =array();
@@ -151,7 +151,7 @@ class AccountController extends Controller
             foreach ($summary as $s) {
                 $name_account = Account::find($s->account_id);
                 $s->setAttribute('name_account',$name_account->name);
-                $name_categories = Categories::find($s->categories_id);
+                $name_categories = AccountCategories::find($s->categories_id);
                 $s->setAttribute('name_categories',$name_categories->name);
 
                   if(Attached::where('summary_id',$s->id)->exists()){
@@ -186,7 +186,7 @@ class AccountController extends Controller
         foreach ($summary as $s) {
           $name_account = Account::find($s->account_id);
           $s->setAttribute('name_account',$name_account->name);
-          $name_categories = Categories::find($s->categories_id);
+          $name_categories = AccountCategories::find($s->categories_id);
           $s->setAttribute('name_categories',$name_categories->name);
 
           if(Attached::where('summary_id',$s->id)->exists()){

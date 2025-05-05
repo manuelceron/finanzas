@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Permissions;
+use App\Models\AccountPermissions;
 use App\Models\Bitacora;
 
 
@@ -83,7 +83,7 @@ class UsersController extends Controller
         	  	$hoy=date('Y-m-d H:m:s',strtotime('today'));
                 $log = Auth::id();
 
-                $permisos= Permissions::where('id_user',$id)->first();
+                $permisos= AccountPermissions::where('id_user',$id)->first();
               
 
                 if($log==$id){
@@ -93,7 +93,7 @@ class UsersController extends Controller
                 $permisos1=$permisos->id;
               
 
-                    $user2 = Permissions::find($permisos1);
+                    $user2 = AccountPermissions::find($permisos1);
                     $user2->delete();
 
                     $user = User::find($id);

@@ -5,15 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Summary;
 use App\Models\Account;
-use App\Models\Categories;
+use App\Models\AccountCategories;
 use App\Models\Attached;
-use App\Models\Settings;
+use App\Models\AccountSettings;
 use App\Models\Bitacora;
 use App\Models\Transfer;
 use App\Models\Attributes;
 use App\Models\Tours;
 use App\Models\Attributestours;
-use App\Models\Permissions;
+use App\Models\AccountPermissions;
 use Auth;
 use Datetime;
 use Illuminate\Support\Facades\DB;
@@ -26,7 +26,7 @@ class SummaryController extends Controller
 
     public function pass($act=null)
    {    
-    $permisos = Permissions::where('id_user',Auth::id())->first();
+    $permisos = AccountPermissions::where('id_user',Auth::id())->first();
     $permisos = $permisos->toArray();
     return $permisos[$act];
    }
@@ -42,10 +42,10 @@ class SummaryController extends Controller
       
         $summary = Summary::where('created_at','<=',$hoy)->where('future','=',1)->get();
         // $summary = Summary::all();
-        $categories = Categories::all();
+        $categories = AccountCategories::all();
         $tours = Tours::all();
         $account = Account::all();
-        $divisa = Settings::where('name','divisa')->first();
+        $divisa = AccountSettings::where('name','divisa')->first();
 
 
         $total=array();
@@ -147,7 +147,7 @@ class SummaryController extends Controller
           $name_account = Account::find($s->account_id);
           $s->setAttribute('name_account',$name_account->name);
 
-          $name_categories = Categories::find($s->categories_id);
+          $name_categories = AccountCategories::find($s->categories_id);
           $s->setAttribute('name_categories',$name_categories->name);
 
 
@@ -259,7 +259,7 @@ class SummaryController extends Controller
 
       $type = $request->input('type');
       $data = Account::all();
-      $data2 = Categories::all();
+      $data2 = AccountCategories::all();
       $tours = Tours::all();
    
         return view('vendor.adminlte.summary.create',['data'=>$data,'data2'=>$data2,'type'=>$type,'tours'=>$tours]);
@@ -336,7 +336,7 @@ class SummaryController extends Controller
     $r=$this->pass('movimientos');
     if($r==1 || $r==2  || $r==4  || $r==7){
 
-          $categories = Categories::all();
+          $categories = AccountCategories::all();
           $account = Account::all();
           $data = Summary::where('id',$id)->first();
           $tours = Tours::all();

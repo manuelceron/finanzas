@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;	
 use App\Models\bitacora;
-use App\Models\permissions;
+use App\Models\AccountPermissions;
 use Auth;
 
 class PermissionsController extends Controller
@@ -13,15 +13,15 @@ class PermissionsController extends Controller
     public function index(Request $request, $id)
    {	
 
-            $user = Permissions::where('id_user',$id)->get();
-            $user2 = Permissions::where('id_user',$id)->first();
+            $user = AccountPermissions::where('id_user',$id)->get();
+            $user2 = AccountPermissions::where('id_user',$id)->first();
             $idd=$user2->id_user;
             return view('vendor.adminlte.users.permissions',['user'=>$user,'iduser'=>$idd]);
       }
 
         public function update(Request $request, $id)
    {
-  		$user = Permissions::where('id_user',$id)->first();
+  		$user = AccountPermissions::where('id_user',$id)->first();
   		$idruta =$id;
   		$id = $user->id;
 
@@ -345,7 +345,7 @@ class PermissionsController extends Controller
 
 
 		
-	$summary = Permissions::find($id);
+	$summary = AccountPermissions::find($id);
     $summary->saldo = $saldo;
     $summary->m_futuros = $futuro;
     $summary->pdf = $pdf;
@@ -360,7 +360,7 @@ class PermissionsController extends Controller
     $summary->save();
 
 				// $user->save();
-            $user = Permissions::where('id_user',$id)->get();
+            $user = AccountPermissions::where('id_user',$id)->get();
             return redirect("permisos/ver/".$idruta);
       }
 }

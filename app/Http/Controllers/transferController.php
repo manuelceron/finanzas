@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Account;
-use App\Models\Categories;
+use App\Models\AccountCategories;
 use App\Models\Summary;
-use App\Models\Settings;
+use App\Models\AccountSettings;
 use App\Models\Attached;
 use App\Models\Bitacora;
 use App\Models\Transfer;
@@ -25,9 +25,9 @@ class TransferController extends Controller
         $summary = Summary::where('created_at','<=',$hoy)->orderBy('id','desc')->get();
         $total =array();
         // $summary = Summary::all();
-        $categories = Categories::all();
+        $categories = AccountCategories::all();
         $account = Account::all();
-        $divisa = Settings::where('name','divisa')->first();
+        $divisa = AccountSettings::where('name','divisa')->first();
        
         $response =array();
         foreach ($account as $a) {
@@ -65,7 +65,7 @@ class TransferController extends Controller
         $hoy=date('Y-m-d',strtotime('today + 1 days'));
   
         $account = Account::all();
-        $divisa = Settings::where('name','divisa')->first();
+        $divisa = AccountSettings::where('name','divisa')->first();
       
         foreach ($account as $a) {
           $tmp = Summary::where('created_at','<=',$hoy)->where('account_id',$id)->get();
@@ -99,15 +99,15 @@ class TransferController extends Controller
        if($r==1 || $r==2 || $r==3 || $r==6 ){  
 
    		  $summary = Summary::all();
-        $categories = Categories::all();
+        $categories = AccountCategories::all();
         $account = Account::all();
-        $divisa = Settings::where('name','divisa')->first();
+        $divisa = AccountSettings::where('name','divisa')->first();
 
     
         foreach ($summary as $s) {
           $name_account = Account::find($s->account_id);
           $s->setAttribute('name_account',$name_account->name);
-          $name_categories = Categories::find($s->categories_id);
+          $name_categories = AccountCategories::find($s->categories_id);
           $s->setAttribute('name_categories',$name_categories->name);
 
           if(Attached::where('summary_id',$s->id)->exists()){

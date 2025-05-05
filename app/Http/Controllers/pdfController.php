@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Summary;
 use App\Models\Account;
-use App\Models\Categories;
+use App\Models\AccountCategories;
 use App\Models\Attached;
-use App\Models\Settings;
+use App\Models\AccountSettings;
 use App\Models\Bitacora;
 use App\Models\Transfer;
 use App\Models\Attributes;
@@ -38,9 +38,9 @@ class PdfController extends Controller
 
         $data = Summary::where('created_at','<=',$hoy)->get();
         // $summary = Summary::all();
-        $categories = Categories::all();
+        $categories = AccountCategories::all();
         $account = Account::all();
-        $divisa = Settings::where('name','divisa')->first();
+        $divisa = AccountSettings::where('name','divisa')->first();
 
         return $data;
     }
@@ -54,12 +54,12 @@ class PdfController extends Controller
 
         $summary = Summary::where('created_at','<=',$hoy)->where('future','=',1)->get();
         // $summary = Summary::all();
-        $categories = Categories::all();
+        $categories = AccountCategories::all();
         $atributos = Attributes::all();
         $atributostours = AttributesTours::all();
         $tours = Tours::all();
         $account = Account::all();
-        $divisa = Settings::where('name','divisa')->first();
+        $divisa = AccountSettings::where('name','divisa')->first();
 
         $total=array();
         $totaliva=array();
@@ -152,7 +152,7 @@ class PdfController extends Controller
         foreach ($summary as $s) {
           $name_account = Account::find($s->account_id);
           $s->setAttribute('name_account',$name_account->name);
-          $name_categories = Categories::find($s->categories_id);
+          $name_categories = AccountCategories::find($s->categories_id);
           $s->setAttribute('name_categories',$name_categories->name);
 
           $name_tours = Tours::find($s->tours_id);
@@ -266,12 +266,12 @@ class PdfController extends Controller
 
         $summary = Summary::where('created_at','>',$hoy)->get();
         // $summary = Summary::all();
-        $categories = Categories::all();
+        $categories = AccountCategories::all();
         $atributos = Attributes::all();
         $atributostours = AttributesTours::all();
         $tours = Tours::all();
         $account = Account::all();
-        $divisa = Settings::where('name','divisa')->first();
+        $divisa = AccountSettings::where('name','divisa')->first();
 
         $total=array();
         $totaliva=array();
@@ -360,7 +360,7 @@ class PdfController extends Controller
         foreach ($summary as $s) {
           $name_account = Account::find($s->account_id);
           $s->setAttribute('name_account',$name_account->name);
-          $name_categories = Categories::find($s->categories_id);
+          $name_categories = AccountCategories::find($s->categories_id);
           $s->setAttribute('name_categories',$name_categories->name);
 
           $name_tours = Tours::find($s->tours_id);

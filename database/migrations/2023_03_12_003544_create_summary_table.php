@@ -15,7 +15,7 @@ class CreateSummaryTable extends Migration
     {
         Schema::create('summary', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('created_at')->nullable();
+            //$table->timestamp('created_at')->nullable();
             $table->text('concept');
             $table->enum('type', ['add', 'out', 'transfer'])->nullable();
             $table->double('amount')->nullable();
@@ -32,8 +32,8 @@ class CreateSummaryTable extends Migration
             $table->timestamps();
         });
         Schema::table('summary', function (Blueprint $table) {
-            $table->foreign('account_id')->references('id')->on('account')->onDelete('no action')->onUpdate('no action');
-            $table->foreign('categories_id')->references('id')->on('categories')->onDelete('no action')->onUpdate('no action');
+            //$table->foreign('account_id')->references('id')->on('accounts')->onDelete('no action')->onUpdate('no action');
+            $table->foreign('categories_id')->references('id')->on('account_categories')->onDelete('no action')->onUpdate('no action');
         });
     }
 

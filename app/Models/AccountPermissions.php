@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Categories extends Model
+class AccountPermissions extends Model
 {
-    protected $table = 'categories';
+    protected $table = 'account_permissions';
     public $timestamps = false;
 }

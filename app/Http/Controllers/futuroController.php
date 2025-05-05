@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Summary;
 use App\Models\Account;
-use App\Models\Categories;
+use App\Models\AccountCategories;
 use App\Models\Attached;
-use App\Models\Settings;
+use App\Models\AccountSettings;
 use App\Models\Bitacora;
 use App\Models\Transfer;
 use App\Models\Attributes;
@@ -28,10 +28,10 @@ class FuturoController extends Controller
 
             $summary = Summary::where('created_at', '>', $hoy)->get();
             // $summary = summary::all();
-            $categories = Categories::all();
+            $categories = AccountCategories::all();
             $tours = Tours::all();
             $account = Account::all();
-            $divisa = Settings::where('name', 'divisa')->first();
+            $divisa = AccountSettings::where('name', 'divisa')->first();
 
             $total = array();
             $totaliva = array();
@@ -116,7 +116,7 @@ class FuturoController extends Controller
                 $name_account = Account::find($s->account_id);
                 $s->setAttribute('name_account', $name_account->name);
 
-                $name_categories = Categories::find($s->categories_id);
+                $name_categories = AccountCategories::find($s->categories_id);
                 $s->setAttribute('name_categories', $name_categories->name);
 
                 $name_tours = Tours::find($s->tours_id);
@@ -145,7 +145,7 @@ class FuturoController extends Controller
                 $name_account = Account::find($s->account_id);
                 $s->setAttribute('name_account', $name_account->name);
 
-                $name_categories = Categories::find($s->categories_id);
+                $name_categories = AccountCategories::find($s->categories_id);
                 $s->setAttribute('name_categories', $name_categories->name);
 
 
@@ -249,7 +249,7 @@ class FuturoController extends Controller
         $r = (new SummaryController)->pass($act = 'm_futuros');
         if ($r == 1 || $r == 2 || $r == 4 || $r == 7) {
 
-            $categories = Categories::all();
+            $categories = AccountCategories::all();
             $account = Account::all();
             $data = Summary::where('id', $id)->first();
 

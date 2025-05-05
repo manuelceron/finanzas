@@ -16,8 +16,8 @@ class CreateAttachedTable extends Migration
         Schema::create('attached', function (Blueprint $table) {
             $table->id();
             $table->text('path');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable()->comment('fecha de edicion');
+            //$table->timestamp('created_at')->nullable();
+           // $table->timestamp('updated_at')->nullable()->comment('fecha de edicion');
             $table->unsignedBigInteger('summary_id');
             $table->foreign('summary_id')->references('id')->on('summary')->onDelete('cascade');
             $table->timestamps();

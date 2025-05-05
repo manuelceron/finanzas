@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Categories;
+use App\Models\AccountCategories;
 use App\Models\Summary;
 use App\Models\Attached;
 use App\Models\Account;
@@ -11,7 +11,7 @@ use App\Models\Attributes;
 use App\Models\Bitacora;
 use App\Models\Tours;
 use App\Models\Attributestours;
-use App\Models\Settings;
+use App\Models\AccountSettings;
 use App\Models\Transfer;
 use Auth;
 use Datetime;
@@ -221,7 +221,7 @@ class ToursController extends Controller
 
         $data = AttributesTours::where('id_tours',$id)->get();
         $tour = Tours::where('id',$id)->first();
-        $divisa = Settings::where('name','divisa')->first();
+        $divisa = AccountSettings::where('name','divisa')->first();
 
 
          //total add
@@ -289,10 +289,10 @@ class ToursController extends Controller
 
 
         // $summary = Summary::all();
-        $categories = Categories::all();
+        $categories = AccountCategories::all();
         $tours = Tours::all();
         $account = Account::all();
-        $divisa = Settings::where('name','divisa')->first();
+        $divisa = AccountSettings::where('name','divisa')->first();
 
         $movimientosa = AttributesTours::where('id',$id)->get();
 
@@ -399,7 +399,7 @@ class ToursController extends Controller
           $name_account = Account::find($s->account_id);
           $s->setAttribute('name_account',$name_account->name);
 
-          $name_categories = Categories::find($s->categories_id);
+          $name_categories = AccountCategories::find($s->categories_id);
           $s->setAttribute('name_categories',$name_categories->name);
 
 

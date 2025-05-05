@@ -13,7 +13,7 @@ class CreatePermissionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('permissions', function (Blueprint $table) {
+        Schema::create('account_permissions', function (Blueprint $table) {
                 $table->id();
                 $table->integer('id_user');
                 $table->integer('saldo')->nullable();
@@ -38,6 +38,6 @@ class CreatePermissionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permissions');
+        Schema::dropIfExists('account_permissions');
     }
 }

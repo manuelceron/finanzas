@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Categories;
+use App\Models\AccountCategories;
 use App\Models\Summary;
 use App\Models\Attributes;
 use App\Models\Bitacora;
@@ -60,21 +60,21 @@ class BalanceController extends Controller
             $dataTmp = array();
             $r=(new SummaryController)->pass($act='categoria');
             if($r>0){
-                $categories = Categories::whereNotIn('id', [1])->get();
+                $categories = AccountCategories::whereNotIn('id', [1])->get();
                 if( $categorias) {
-                    $categoriaselet = Categories::where('id','=',$categorias)->first();
+                    $categoriaselet = AccountCategories::where('id','=',$categorias)->first();
 
                     if($categoriaselet->id){
                         $summary = Summary::where('categories_id','=',$categoriaselet->id)->where('future','=',1)->get();
                         $attrs = Attributes::where('id_categorie','=',$categoriaselet->id)->get();
 //
                         $data = DB::table('summary')
-                            ->join('categories','categories.id','=','summary.categories_id')
-                            ->select('summary.*', 'categories.name as categories_name', 'categories.id as categories_id'
-                                ,'categories.type as categories_type', 'categories.description as categories_description')
+                            ->join('account_categories','account_categories.id','=','summary.categories_id')
+                            ->select('summary.*', 'account_categories.name as categories_name', 'account_categories.id as categories_id'
+                                ,'account_categories.type as categories_type', 'account_categories.description as categories_description')
                             ->where('categories_id','=',$categoriaselet->id)
-                            ->where('categories.type','=',$tipo)
-                            ->whereNotIn('categories.id', [1])
+                            ->where('account_categories.type','=',$tipo)
+                            ->whereNotIn('account_categories.id', [1])
                             ->where('future','=',1)->get();
 
                         $data = $data->map(function($item) {
@@ -106,11 +106,11 @@ class BalanceController extends Controller
                 }
                 else {
                     $data = DB::table('summary')
-                        ->join('categories','categories.id','=','summary.categories_id')
-                        ->select('summary.*', 'categories.name as categories_name', 'categories.id as categories_id'
-                            ,'categories.type as categories_type', 'categories.description as categories_description')
-                        ->where('categories.type','=',$tipo)
-                        ->whereNotIn('categories.id', [1])
+                        ->join('account_categories','account_categories.id','=','summary.categories_id')
+                        ->select('summary.*', 'account_categories.name as categories_name', 'account_categories.id as categories_id'
+                            ,'account_categories.type as categories_type', 'account_categories.description as categories_description')
+                        ->where('account_categories.type','=',$tipo)
+                        ->whereNotIn('account_categories.id', [1])
                         ->where('future','=',1)->get();
 
                     $data = $data->map(function($item) {
@@ -139,9 +139,9 @@ class BalanceController extends Controller
                         $dataTmp[$d] = $this->filterData($data,$d);
                     }
                     $summary = array();
-                    $attrs = Categories::whereNotIn('id', [1])->get();
+                    $attrs = AccountCategories::whereNotIn('id', [1])->get();
                     $categoriaselet = array();
-                    $catesnull= Categories::all();
+                    $catesnull= AccountCategories::all();
                     $data = array();
 
                     return view('vendor.adminlte.balance.balance',
@@ -167,21 +167,21 @@ class BalanceController extends Controller
             $dataTmp = array();
             $r=(new SummaryController)->pass($act='categoria');
             if($r>0){
-                $categories = Categories::whereNotIn('id', [1])->get();
+                $categories = AccountCategories::whereNotIn('id', [1])->get();
                 if( $categorias) {
-                    $categoriaselet = Categories::where('id','=',$categorias)->first();
+                    $categoriaselet = AccountCategories::where('id','=',$categorias)->first();
 
                     if($categoriaselet->id){
                         $summary = Summary::where('categories_id','=',$categoriaselet->id)->where('future','=',1)->get();
                         $attrs = Attributes::where('id_categorie','=',$categoriaselet->id)->get();
 //
                         $data = DB::table('summary')
-                            ->join('categories','categories.id','=','summary.categories_id')
-                            ->select('summary.*', 'categories.name as categories_name', 'categories.id as categories_id'
-                                ,'categories.type as categories_type', 'categories.description as categories_description')
+                            ->join('account_categories','account_categories.id','=','summary.categories_id')
+                            ->select('summary.*', 'account_categories.name as categories_name', 'account_categories.id as categories_id'
+                                ,'account_categories.type as categories_type', 'account_categories.description as categories_description')
                             ->where('categories_id','=',$categoriaselet->id)
-                            ->where('categories.type','=',$tipo)
-                            ->whereNotIn('categories.id', [1])
+                            ->where('account_categories.type','=',$tipo)
+                            ->whereNotIn('account_categories.id', [1])
                             ->where('future','=',1)->get();
 
                         $data = $data->map(function($item) {
@@ -240,21 +240,21 @@ class BalanceController extends Controller
         $dataTmp = array();
         $r=(new SummaryController)->pass($act='categoria');
         if($r>0){
-            $categories = Categories::whereNotIn('id', [1])->get();
+            $categories = AccountCategories::whereNotIn('id', [1])->get();
             if( $categorias) {
-                $categoriaselet = Categories::where('id','=',$categorias)->first();
+                $categoriaselet = AccountCategories::where('id','=',$categorias)->first();
 
                 if($categoriaselet->id){
                     $summary = Summary::where('categories_id','=',$categoriaselet->id)->where('future','=',1)->get();
                     $attrs = Attributes::where('id_categorie','=',$categoriaselet->id)->get();
 //
                     $data = DB::table('summary')
-                        ->join('categories','categories.id','=','summary.categories_id')
-                        ->select('summary.*', 'categories.name as categories_name', 'categories.id as categories_id'
-                            ,'categories.type as categories_type', 'categories.description as categories_description')
+                        ->join('account_categories','account_categories.id','=','summary.categories_id')
+                        ->select('summary.*', 'account_categories.name as categories_name', 'account_categories.id as categories_id'
+                            ,'account_categories.type as categories_type', 'account_categories.description as categories_description')
                         ->where('categories_id','=',$categoriaselet->id)
-                        ->where('categories.type','=',$tipo)
-                        ->whereNotIn('categories.id', [1])
+                        ->where('account_categories.type','=',$tipo)
+                        ->whereNotIn('account_categories.id', [1])
                         ->where('future','=',1)->get();
 
                     $data = $data->map(function($item) {
@@ -286,11 +286,11 @@ class BalanceController extends Controller
             }
             else {
                 $data = DB::table('summary')
-                    ->join('categories','categories.id','=','summary.categories_id')
-                    ->select('summary.*', 'categories.name as categories_name', 'categories.id as categories_id'
-                        ,'categories.type as categories_type', 'categories.description as categories_description')
-                    ->where('categories.type','=',$tipo)
-                    ->whereNotIn('categories.id', [1])
+                    ->join('account_categories','account_categories.id','=','summary.categories_id')
+                    ->select('summary.*', 'account_categories.name as categories_name', 'account_categories.id as categories_id'
+                        ,'account_categories.type as categories_type', 'account_categories.description as categories_description')
+                    ->where('account_categories.type','=',$tipo)
+                    ->whereNotIn('account_categories.id', [1])
                     ->where('future','=',1)->get();
 
                 $data = $data->map(function($item) {
@@ -319,9 +319,9 @@ class BalanceController extends Controller
                     $dataTmp[$d] = $this->filterData($data,$d);
                 }
                 $summary = array();
-                $attrs = Categories::whereNotIn('id', [1])->get();
+                $attrs = AccountCategories::whereNotIn('id', [1])->get();
                 $categoriaselet = array();
-                $catesnull= Categories::all();
+                $catesnull= AccountCategories::all();
                 $data = array();
 
                 return view('vendor.adminlte.balance.balance',
@@ -346,23 +346,23 @@ class BalanceController extends Controller
         $dataTmp = array();
         $r=(new SummaryController)->pass($act='categoria');
         if($r>0){
-//            $categories = Categories::all();
-            $categories = Categories::whereNotIn('id', [1])->get();
+//            $categories = AccountCategories::all();
+            $categories = AccountCategories::whereNotIn('id', [1])->get();
 
             if( $categorias) {
-                $categoriaselet = Categories::where('id','=',$categorias)->first();
+                $categoriaselet = AccountCategories::where('id','=',$categorias)->first();
 
                 if($categoriaselet->id){
                     $summary = Summary::where('categories_id','=',$categoriaselet->id)->where('future','=',1)->get();
                     $attrs = Attributes::where('id_categorie','=',$categoriaselet->id)->get();
 //
                     $data = DB::table('summary')
-                        ->join('categories','categories.id','=','summary.categories_id')
-                        ->select('summary.*', 'categories.name as categories_name', 'categories.id as categories_id'
-                            ,'categories.type as categories_type', 'categories.description as categories_description')
+                        ->join('account_categories','account_categories.id','=','summary.categories_id')
+                        ->select('summary.*', 'account_categories.name as categories_name', 'account_categories.id as categories_id'
+                            ,'account_categories.type as categories_type', 'account_categories.description as categories_description')
                         ->where('categories_id','=',$categoriaselet->id)
-                        ->where('categories.type','=',$tipo)
-                        ->whereNotIn('categories.id', [1])
+                        ->where('account_categories.type','=',$tipo)
+                        ->whereNotIn('account_categories.id', [1])
                         ->where('future','=',1)->get();
 
                     $data = $data->map(function($item) {
@@ -394,11 +394,11 @@ class BalanceController extends Controller
             }
             else {
                 $data = DB::table('summary')
-                    ->join('categories','categories.id','=','summary.categories_id')
-                    ->select('summary.*', 'categories.name as categories_name', 'categories.id as categories_id'
-                        ,'categories.type as categories_type', 'categories.description as categories_description')
-                    ->where('categories.type','=',$tipo)
-                    ->whereNotIn('categories.id', [1])
+                    ->join('account_categories','account_categories.id','=','summary.categories_id')
+                    ->select('summary.*', 'account_categories.name as categories_name', 'account_categories.id as categories_id'
+                        ,'account_categories.type as categories_type', 'account_categories.description as categories_description')
+                    ->where('account_categories.type','=',$tipo)
+                    ->whereNotIn('account_categories.id', [1])
                     ->where('future','=',1)->get();
 
                 $data = $data->map(function($item) {
@@ -427,9 +427,9 @@ class BalanceController extends Controller
                     $dataTmp[$d] = $this->filterData($data,$d);
                 }
                 $summary = array();
-                $attrs = Categories::whereNotIn('id', [1])->get();
+                $attrs = AccountCategories::whereNotIn('id', [1])->get();
                 $categoriaselet = array();
-                $catesnull= Categories::all();
+                $catesnull= AccountCategories::all();
                 $data = array();
 
                 return view('vendor.adminlte.balance.balance',

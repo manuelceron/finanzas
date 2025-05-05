@@ -15,15 +15,15 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(AccountSeeder::class);
-        $this->call(AttachedTableSeeder::class);
-        $this->call(AttrValuesTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
         $this->call(BitacoraSeeder::class);
         $this->call(CategoriesTableSeeder::class);
+        $this->call(AttrValuesTableSeeder::class);
         $this->call(PermissionsTableSeeder::class);
         $this->call(SettingsTableSeeder::class);
         $this->call(SummaryTableSeeder::class);
+        $this->call(AttachedTableSeeder::class);
         $this->call(ToursTableSeeder::class);
         $this->call(ToursAttrTableSeeder::class);
-        $this->call(UsersTableSeeder::class);
     }
 }
